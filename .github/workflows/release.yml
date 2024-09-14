@@ -9,15 +9,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: true
+    - uses: actions/checkout@v4
 
     - name: Build release binary
       run: cargo build --verbose --locked --release
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: run-in-roblox-win64
         path: target/release/run-in-roblox.exe
@@ -26,9 +24,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: true
+    - uses: actions/checkout@v4
 
     - name: Install Rust
       run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -41,7 +37,7 @@ jobs:
         OPENSSL_STATIC: 1
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: run-in-roblox-macos
         path: target/release/run-in-roblox
@@ -50,9 +46,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-      with:
-        submodules: true
+    - uses: actions/checkout@v4
 
     - name: Build
       run: cargo build --locked --verbose --release
@@ -60,7 +54,8 @@ jobs:
         OPENSSL_STATIC: 1
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: run-in-roblox-linux
         path: target/release/run-in-roblox
+        
