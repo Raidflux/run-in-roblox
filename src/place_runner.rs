@@ -32,9 +32,12 @@ pub struct PlaceRunner {
 }
 
 impl PlaceRunner {
-
     fn get_studio_execution_cmd(&self, studio_install: &RobloxStudio) -> String {
-        let app_path = studio_install.application_path().to_str().unwrap().to_string();
+        let app_path = studio_install
+            .application_path()
+            .to_str()
+            .unwrap()
+            .to_string();
 
         if app_path.contains("vinegar") {
             "vinegar".to_string()
@@ -42,7 +45,6 @@ impl PlaceRunner {
             app_path
         }
     }
-
 
     pub fn run(&self, sender: mpsc::Sender<Option<RobloxMessage>>) -> Result<(), anyhow::Error> {
         let studio_install =
@@ -68,7 +70,12 @@ impl PlaceRunner {
 
         let mut studio_cmd = Command::new(self.get_studio_execution_cmd(&studio_install));
 
-        if studio_cmd.get_program().to_str().unwrap().contains("vinegar") {
+        if studio_cmd
+            .get_program()
+            .to_str()
+            .unwrap()
+            .contains("vinegar")
+        {
             studio_cmd.arg("studio");
             studio_cmd.arg("run");
         }
