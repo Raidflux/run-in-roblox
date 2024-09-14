@@ -32,6 +32,18 @@ pub struct PlaceRunner {
 }
 
 impl PlaceRunner {
+
+    fn get_studio_execution_cmd(&self, studio_install: &RobloxStudio) -> String {
+        let app_path = studio_install.application_path().to_str().unwrap().to_string();
+
+        if app_path.contains("vinegar") {
+            "vinegar".to_string()
+        } else {
+            app_path
+        }
+    }
+
+
     pub fn run(&self, sender: mpsc::Sender<Option<RobloxMessage>>) -> Result<(), anyhow::Error> {
         let studio_install =
             RobloxStudio::locate().context("Could not locate a Roblox Studio installation.")?;
@@ -54,9 +66,17 @@ impl PlaceRunner {
             server_id: self.server_id.to_owned(),
         });
 
+        let mut studio_cmd = Command::new(self.get_studio_execution_cmd(&studio_install));
+
+        if studio_cmd.get_program().to_str().unwrap().contains("vinegar") {
+            studio_cmd.arg("studio");
+            studio_cmd.arg("run");
+        }
+
+        studio_cmd.arg(format!("{}", self.place_path.display()));
+
         let _studio_process = KillOnDrop(
-            Command::new(studio_install.application_path())
-                .arg(format!("{}", self.place_path.display()))
+            studio_cmd
                 .stdout(Stdio::null())
                 .stderr(Stdio::null())
                 .spawn()?,
