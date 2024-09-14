@@ -1,0 +1,50 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'run-in-roblox'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=run-in-roblox",
+                    "--package=run-in-roblox"
+                ],
+                "filter": {
+                    "name": "run-in-roblox",
+                    "kind": "bin"
+                }
+            },
+            "args": [
+                "--place",
+                "/home/corne/Documents/Development/roblox/JestLuaTestingProject/JestLuaTestingProject.rbxl",
+                "--script",
+                "/home/corne/Documents/Development/roblox/JestLuaTestingProject/Scripts/run-tests.lua"
+            ],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'run-in-roblox'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=run-in-roblox",
+                    "--package=run-in-roblox"
+                ],
+                "filter": {
+                    "name": "run-in-roblox",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
