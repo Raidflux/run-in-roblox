@@ -29,6 +29,7 @@ pub struct PlaceRunner {
     pub place_path: PathBuf,
     pub server_id: String,
     pub lua_script: String,
+    pub debug: bool,
 }
 
 impl PlaceRunner {
@@ -82,10 +83,13 @@ impl PlaceRunner {
 
         studio_cmd.arg(format!("{}", self.place_path.display()));
 
+        if !self.debug {
+            studio_cmd.stdout(Stdio::null());
+            studio_cmd.stderr(Stdio::null());
+        }
+
         let _studio_process = KillOnDrop(
             studio_cmd
-                .stdout(Stdio::null())
-                .stderr(Stdio::null())
                 .spawn()?,
         );
 

@@ -27,6 +27,10 @@ struct Options {
     /// The script will be run at plugin-level security.
     #[structopt(long("script"))]
     script_path: PathBuf,
+
+    /// whether to print debug information
+    #[structopt(long("debug"))]
+    debug: bool,
 }
 
 fn run(options: Options) -> Result<i32, anyhow::Error> {
@@ -67,6 +71,7 @@ fn run(options: Options) -> Result<i32, anyhow::Error> {
         place_path: temp_place_path.clone(),
         server_id: server_id.clone(),
         lua_script: script_contents.clone(),
+        debug: options.debug,
     };
 
     let (sender, receiver) = mpsc::channel();
