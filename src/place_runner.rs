@@ -88,10 +88,7 @@ impl PlaceRunner {
             studio_cmd.stderr(Stdio::null());
         }
 
-        let _studio_process = KillOnDrop(
-            studio_cmd
-                .spawn()?,
-        );
+        let _studio_process = KillOnDrop(studio_cmd.spawn()?);
 
         let first_message = message_receiver
             .recv_timeout(Duration::from_secs(60))
